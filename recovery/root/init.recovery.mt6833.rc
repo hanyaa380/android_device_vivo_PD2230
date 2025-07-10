@@ -34,16 +34,3 @@ on post-fs
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
     symlink /dev/block/mapper/pl_a /dev/block/platform/bootdevice/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
-
-on early-init
-    start qseecomd
-    exec -- /system/bin/vdc cryptfs mountdefaultencrypted
-    write /sys/class/touchscreen/force_reload 1
-    copy /vendor/firmware/touch_firmwares.bin /sys/class/touchscreen/fw_update
-
-
-service qseecomd /sbin/qseecomd
-    class main
-    user root
-    group root
-    seclabel u:r:qseecomd:s0
